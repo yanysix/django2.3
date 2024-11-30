@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %} Главная {% endblock %}
+
+{% block content %}
+    <h1>Главная страница</h1>
+
+    {% if user.is_authenticated %}
+        <p>Здравствуйте, {{ user.get_username }}</p>
+    {% else %}
+        <p>Для подачи и просмотра заявок войдите в свой профиль или зарегистрируйтесь если у вас нету аккаунта</p>
+    {% endif %}
+
+    <h3>Контент страницы</h3>
+    {% if done_requests %}
+    <p>Список последних заявок (по дате обновления):</p>
+    <ul>
+        {%for done_app in done_requests%}
+        <li>Временная метка: {{ done_app.date }};</li>
+        <li>Название: {{ done_app.name }};</li>
+        <li>Категория заявки: {{ done_app.category }};</li>
+        <li>Фотография: <img src="{{ done_app.image.url }}" alt="Фото или план помещения" style="width: 200px;"></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <p>
+        Количество заявок, находящихся в статусе «Принято в работу»:
+        {% if accepted_request_counter %}
+        {{ accepted_request_counter }}
+        {% else %}
+        0
+        {% endif %}
+    </p>
+{% endblock %}
