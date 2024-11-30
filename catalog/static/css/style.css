@@ -16,3 +16,9 @@ a{
 li{
   hyphens: auto;
 }
+.image{
+    height: 300px;
+
+    background-size: cover;
+    background-position: center;
+}
