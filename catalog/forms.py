@@ -11,7 +11,7 @@ class SignUpForm(UserCreationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput, help_text='Только латиница и дефис, уникальный', required=True,
                                validators=[RegexValidator('^[a-zA-Z-]', message = "Неправильный логин, пожалуйста, попробуйте снова.")],
                                error_messages={
-                                   'unique': 'Этот логин уже занят, попробуйте другой'
+                                   'unique': 'Этот логин уже занят, попробуйте пожалуйста другой'
                                })
     email = forms.EmailField(label='Email', widget=forms.EmailInput, help_text='Валидный формат email-адреса', required=True)
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput, required=True)
@@ -40,7 +40,7 @@ class RequestCreateForm(forms.ModelForm):
     description = forms.CharField(label='Описание', widget=forms.Textarea, required=True)
     category = forms.ModelChoiceField(label='Категория', queryset=Category.objects.all(), required=True)
     image = forms.ImageField(
-        label='План помещения', widget=forms.FileInput,
+        label='План вашего помещения', widget=forms.FileInput,
         help_text='Изображения должно быть в одном из форматов (jpg, jpeg, png, bmp) и с максимальным размером 2 МБ',
         required=True)
 

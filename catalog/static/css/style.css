@@ -32,3 +32,9 @@ li{
 .simple-linear {
   background: linear-gradient(blue, pink);
 }
+section {
+  height: 200px;
+  background-image: url("./img1.jpg");
+  background-repeat: repeat;
+  color: #0707;
+  }
