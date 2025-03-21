@@ -13,5 +13,9 @@ urlpatterns = [
     path('request/', requests, name="requests"),
     path('request/work/change/<int:pk>/', request_work_change, name="request_work_change"),
     path('request/done/change/<int:pk>/', request_done_change, name="request_done_change"),
+    path('categories/', categories, name="categories"),
+    path('category/create/', category_create, name="category_create"),
+    path('category/delete/<int:pk>/', category_delete, name="category_delete"),
+
 
 ]
