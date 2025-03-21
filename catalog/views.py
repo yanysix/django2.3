@@ -75,6 +75,18 @@ def requests(request):
     context = {'new_requests': new_requests}
     return render(request, 'requests.html', context)
 
-
+@login_required
+def request_work_change(request, pk):
+    request_instance = Request.objects.get(id=pk)
+    if request.method == 'POST':
+        form = RequestWorkStatusChangeForm(request.POST, request.FILES, instance=request_instance)
+        if form.is_valid():
+            request = form.save(commit=False)
+            request.status = 'П'  # Устанавливаем статус "Принято в работу"
+            request.save()
+            return redirect('requests')
+    else:
+        form = RequestWorkStatusChangeForm(initial={'status': 'A'})
+    return render(request, 'request_work_change.html', {'form': form})
 
 
