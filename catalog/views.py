@@ -103,4 +103,28 @@ def request_done_change(request, pk):
         form = RequestDoneStatusChangeForm(initial={'status': 'D'})
     return render(request, 'request_done_change.html', {'form': form})
 
+@login_required
+def categories(request):
+    categories = Category.objects.all()
+    context = {'categories': categories}
+    return render(request, 'categories.html', context)
+
+@login_required
+def category_create(request):
+    if request.method == 'POST':
+        form = CategoryCreateForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            return redirect('categories')
+    else:
+        form = CategoryCreateForm()
+    return render(request, 'category_create.html', {'form': form})
+
+@login_required
+def category_delete(request, pk):
+    category = Category.objects.get(id=pk)
+    category.delete()
+    return redirect('categories')
+
 
