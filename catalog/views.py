@@ -89,4 +89,18 @@ def request_work_change(request, pk):
         form = RequestWorkStatusChangeForm(initial={'status': 'A'})
     return render(request, 'request_work_change.html', {'form': form})
 
+@login_required
+def request_done_change(request, pk):
+    request_instance = Request.objects.get(id=pk)
+    if request.method == 'POST':
+        form = RequestDoneStatusChangeForm(request.POST, request.FILES, instance=request_instance)
+        if form.is_valid():
+            request = form.save(commit=False)
+            request.status = 'В'  # Устанавливаем статус "Выполнено"
+            request.save()
+            return redirect('requests')
+    else:
+        form = RequestDoneStatusChangeForm(initial={'status': 'D'})
+    return render(request, 'request_done_change.html', {'form': form})
+
 
