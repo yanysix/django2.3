@@ -75,54 +75,6 @@ def requests(request):
     context = {'new_requests': new_requests}
     return render(request, 'requests.html', context)
 
-@login_required
-def request_done_change(request, pk):
-    request_instance = Request.objects.get(id=pk)
-    if request.method == 'POST':
-        form = RequestDoneStatusChangeForm(request.POST, request.FILES, instance=request_instance)
-        if form.is_valid():
-            request = form.save(commit=False)
-            request.status = 'В'
-            request.save()
-            return redirect('requests')
-    else:
-        form = RequestDoneStatusChangeForm(initial={'status': 'D'})
-    return render(request, 'request_done_change.html', {'form': form})
 
-@login_required
-def request_work_change(request, pk):
-    request_instance = Request.objects.get(id=pk)
-    if request.method == 'POST':
-        form = RequestWorkStatusChangeForm(request.POST, request.FILES, instance=request_instance)
-        if form.is_valid():
-            request = form.save(commit=False)
-            request.status = 'П'
-            request.save()
-            return redirect('requests')
-    else:
-        form = RequestWorkStatusChangeForm(initial={'status': 'A'})
-    return render(request, 'request_work_change.html', {'form': form})
 
-@login_required
-def categories(request):
-    categories = Category.objects.all()
-    context = {'categories': categories}
-    return render(request, 'categories.html', context)
 
-@login_required
-def category_create(request):
-    if request.method == 'POST':
-        form = CategoryCreateForm(request.POST)
-        if form.is_valid():
-            category = form.save(commit=False)
-            category.save()
-            return redirect('categories')
-    else:
-        form = CategoryCreateForm()
-    return render(request, 'category_create.html', {'form': form})
-
-@login_required
-def category_delete(request, pk):
-    category = Category.objects.get(id=pk)
-    category.delete()
-    return redirect('categories')
