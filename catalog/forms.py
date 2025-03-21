@@ -60,6 +60,13 @@ class RequestCreateForm(forms.ModelForm):
         model = Request
         fields = ('name', 'description', 'category', 'image', )
 
+        class RequestWorkStatusChangeForm(forms.ModelForm):
+            comment = forms.CharField(label='Комментарий', widget=forms.TextInput, required=True)
+
+            class Meta:
+                model = Request
+                fields = ('comment',)
+
 
 
 
