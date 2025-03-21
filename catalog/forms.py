@@ -67,6 +67,10 @@ class RequestDoneStatusChangeForm(forms.ModelForm):
         model = Request
         fields = ('image_done',)
 
+class CategoryCreateForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name',)
 class RequestWorkStatusChangeForm(forms.ModelForm):
             comment = forms.CharField(label='Комментарий', widget=forms.TextInput, required=True)
 
